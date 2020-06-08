@@ -51,12 +51,12 @@ public class MpGenerator {
         dsc.setPassword(pwd);
         dsc.setUrl("jdbc:mysql://localhost:3306/cqutcrm?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai");
         mpg.setDataSource(dsc);
- 
-        // 策略配置
+        
+     // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setInclude("sales"); // 需要生成的表
+        strategy.setInclude(new String[] { "contact" }); // 需要生成的表
         mpg.setStrategy(strategy);
  
         // 包配置

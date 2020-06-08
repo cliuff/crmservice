@@ -1,10 +1,6 @@
 package cn.edu.cqut.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -14,60 +10,40 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author HQYJ
- * @since 2020-06-03
+ * @author CQUT SE 2020
+ * @since 2020-06-08
  */
-@ApiModel//在实体类上加入注解，生成在线接口文档swagger
 public class Customer extends Model<Customer> {
 
     private static final long serialVersionUID=1L;
-   
-    @ApiModelProperty("客户编号")
+
     @TableId("cusNo")
-    private String cusNo;
-    
-    @ApiModelProperty("客户名称")
+    private Integer cusNo;
+
     @TableField("cusName")
     private String cusName;
 
-    @ApiModelProperty("客户区域")
     @TableField("cusRegion")
     private String cusRegion;
 
-    @ApiModelProperty("客户地址编号")
     @TableField("cusAddr")
     private String cusAddr;
 
-    @ApiModelProperty("客户网址编号")
     @TableField("cusUrl")
     private String cusUrl;
 
-    @ApiModelProperty("客户等级")
     @TableField("cusLevel")
     private String cusLevel;
 
-    @ApiModelProperty("客户信用等级")
     @TableField("cusCredit")
     private String cusCredit;
 
-    @ApiModelProperty("客户满意度")
-    @TableField("cusSatisfied")
-    private String cusSatisfied;
 
-    
-    public String getCusSatisfied() {
-		return cusSatisfied;
-	}
-
-	public void setCusSatisfied(String cusSatisfied) {
-		this.cusSatisfied = cusSatisfied;
-	}
-
-	public String getCusNo() {
+    public Integer getCusNo() {
         return cusNo;
     }
 
-    public void setCusNo(String cusNo) {
+    public void setCusNo(Integer cusNo) {
         this.cusNo = cusNo;
     }
 
