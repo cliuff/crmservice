@@ -26,7 +26,11 @@ public class MpGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         gc.setAuthor("HQYJ");
+<<<<<<< HEAD
         gc.setOutputDir("F:/Service/workspace/crmservice/src/main/java"); //对应项目的src/main/java目录在磁盘上的真实路径
+=======
+        gc.setOutputDir("E:/ThirdGrade/Job/WorkPlace/crmservice/src/main/java"); //对应项目的src/main/java目录在磁盘上的真实路径
+>>>>>>> branch 'master' of https://github.com/cliuff/crmservice.git
         gc.setFileOverride(false);// 是否覆盖同名文件，默认是false
         gc.setActiveRecord(true);// 不需要ActiveRecord特性的请改为false
         gc.setEnableCache(false);// XML 二级缓存

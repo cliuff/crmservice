@@ -17,6 +17,7 @@ import java.io.Serializable;
  * @author HQYJ
  * @since 2020-06-03
  */
+<<<<<<< HEAD
 @ApiModel
 public class Customer extends Model<Customer> {
 
@@ -47,6 +48,38 @@ public class Customer extends Model<Customer> {
     private String cusLevel;
 
     @ApiModelProperty("客户客户信用等级")
+=======
+@ApiModel//在实体类上加入注解，生成在线接口文档swagger
+public class Customer extends Model<Customer> {
+
+    private static final long serialVersionUID=1L;
+   
+    @ApiModelProperty("客户编号")
+    @TableId("cusNo")
+    private String cusNo;
+    
+    @ApiModelProperty("客户名称")
+    @TableField("cusName")
+    private String cusName;
+
+    @ApiModelProperty("客户区域")
+    @TableField("cusRegion")
+    private String cusRegion;
+
+    @ApiModelProperty("客户地址编号")
+    @TableField("cusAddr")
+    private String cusAddr;
+
+    @ApiModelProperty("客户网址编号")
+    @TableField("cusUrl")
+    private String cusUrl;
+
+    @ApiModelProperty("客户等级")
+    @TableField("cusLevel")
+    private String cusLevel;
+
+    @ApiModelProperty("客户信用等级")
+>>>>>>> branch 'master' of https://github.com/cliuff/crmservice.git
     @TableField("cusCredit")
     private String cusCredit;
 
