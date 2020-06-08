@@ -56,7 +56,11 @@ public class MpGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+<<<<<<< HEAD
         strategy.setInclude("contact"); // 需要生成的表
+=======
+        strategy.setInclude("sales"); // 需要生成的表
+>>>>>>> branch 'master' of https://github.com/cliuff/crmservice.git
         mpg.setStrategy(strategy);
  
         // 包配置
