@@ -6,6 +6,7 @@ import java.util.Properties;
 
 public class ConfigUtil {
     public static String PROJECT_DIR = "crm.project.dir";
+    public static String DATASOURCE_UTIL_TABLES = "crm.datasource.tables";
 
     public static Properties getProperties() {
         String envPath = "config.properties";
