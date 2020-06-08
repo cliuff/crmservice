@@ -17,15 +17,15 @@ import java.io.Serializable;
  * @author HQYJ
  * @since 2020-06-03
  */
-@ApiModel
+@ApiModel//在实体类上加入注解，生成在线接口文档swagger
 public class Customer extends Model<Customer> {
 
     private static final long serialVersionUID=1L;
-
+   
     @ApiModelProperty("客户编号")
     @TableId("cusNo")
     private String cusNo;
-
+    
     @ApiModelProperty("客户名称")
     @TableField("cusName")
     private String cusName;
@@ -50,8 +50,20 @@ public class Customer extends Model<Customer> {
     @TableField("cusCredit")
     private String cusCredit;
 
+    @ApiModelProperty("客户满意度")
+    @TableField("cusSatisfied")
+    private String cusSatisfied;
 
-    public String getCusNo() {
+    
+    public String getCusSatisfied() {
+		return cusSatisfied;
+	}
+
+	public void setCusSatisfied(String cusSatisfied) {
+		this.cusSatisfied = cusSatisfied;
+	}
+
+	public String getCusNo() {
         return cusNo;
     }
 
