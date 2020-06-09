@@ -34,7 +34,7 @@ public class CustomerController {
 
     @ApiOperation(value = "分页返回客户信息12456",
             notes = "分页查询客户信息，默认返回第一页，每页10行。还可以根据cusName模糊查询")
-    @RequestMapping(value = "/customers"/*, method = RequestMethod.POST*/)
+    @RequestMapping(value = "/customers", method = RequestMethod.POST)
     public CrmResult<Customer> getAllCustomer(
             @ApiParam(value = "要查询的页码", required = true)
             @RequestParam(defaultValue = "1")

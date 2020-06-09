@@ -1,8 +1,8 @@
 package cn.edu.cqut.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
@@ -21,7 +21,7 @@ public class CustomerPlan extends Model<CustomerPlan> {
     @TableId("cusPlanId")
     private Integer cusPlanId;
 
-    private LocalDateTime time;
+    private LocalDate time;
 
     private String context;
 
@@ -39,11 +39,11 @@ public class CustomerPlan extends Model<CustomerPlan> {
         this.cusPlanId = cusPlanId;
     }
 
-    public LocalDateTime getTime() {
+    public LocalDate getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(LocalDate time) {
         this.time = time;
     }
 
