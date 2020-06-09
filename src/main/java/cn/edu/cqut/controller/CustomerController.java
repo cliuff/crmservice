@@ -29,8 +29,12 @@ import java.util.List;
 @CrossOrigin
 @Api(tags = "客户管理")
 public class CustomerController {
+    private final ICustomerService customerService;
+
     @Autowired
-    private ICustomerService customerService;
+    public CustomerController(ICustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @ApiOperation(value = "分页返回客户信息12456",
             notes = "分页查询客户信息，默认返回第一页，每页10行。还可以根据cusName模糊查询")
