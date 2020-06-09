@@ -1,8 +1,8 @@
 package cn.edu.cqut.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
@@ -37,15 +37,21 @@ public class SaleChance extends Model<SaleChance> {
     private String createPerson;
 
     @TableField("createTime")
-    private LocalDateTime createTime;
+    private LocalDate createTime;
 
     private String assign;
 
     @TableField("assignTime")
-    private LocalDateTime assignTime;
+    private LocalDate assignTime;
 
     @TableField("saleChanceState")
     private String saleChanceState;
+
+    @TableField("ctName")
+    private String ctName;
+
+    @TableField("ctPhone")
+    private String ctPhone;
 
 
     public Integer getSaleChanceId() {
@@ -104,11 +110,11 @@ public class SaleChance extends Model<SaleChance> {
         this.createPerson = createPerson;
     }
 
-    public LocalDateTime getCreateTime() {
+    public LocalDate getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(LocalDate createTime) {
         this.createTime = createTime;
     }
 
@@ -120,11 +126,11 @@ public class SaleChance extends Model<SaleChance> {
         this.assign = assign;
     }
 
-    public LocalDateTime getAssignTime() {
+    public LocalDate getAssignTime() {
         return assignTime;
     }
 
-    public void setAssignTime(LocalDateTime assignTime) {
+    public void setAssignTime(LocalDate assignTime) {
         this.assignTime = assignTime;
     }
 
@@ -134,6 +140,22 @@ public class SaleChance extends Model<SaleChance> {
 
     public void setSaleChanceState(String saleChanceState) {
         this.saleChanceState = saleChanceState;
+    }
+
+    public String getCtName() {
+        return ctName;
+    }
+
+    public void setCtName(String ctName) {
+        this.ctName = ctName;
+    }
+
+    public String getCtPhone() {
+        return ctPhone;
+    }
+
+    public void setCtPhone(String ctPhone) {
+        this.ctPhone = ctPhone;
     }
 
     @Override
@@ -155,6 +177,8 @@ public class SaleChance extends Model<SaleChance> {
         ", assign=" + assign +
         ", assignTime=" + assignTime +
         ", saleChanceState=" + saleChanceState +
+        ", ctName=" + ctName +
+        ", ctPhone=" + ctPhone +
         "}";
     }
 }
