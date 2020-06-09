@@ -29,7 +29,8 @@ public class MpGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         gc.setAuthor("CQUT SE 2020");
-        gc.setOutputDir(projectDir + "/src/main/java"); //对应项目的src/main/java目录在磁盘上的真实路径
+        // 对应项目的 src/main/java 目录在磁盘上的真实路径（在 config.properties 文件里配置）
+        gc.setOutputDir(projectDir + "/src/main/java");
         gc.setFileOverride(false);// 是否覆盖同名文件，默认是false
         gc.setActiveRecord(true);// 不需要ActiveRecord特性的请改为false
         gc.setEnableCache(false);// XML 二级缓存
@@ -47,17 +48,21 @@ public class MpGenerator {
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setDbType(DbType.MYSQL);
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername(userName);
-        dsc.setPassword(pwd);
+        dsc.setUsername(userName); // 数据库用户名（在 application.properties 文件里配置）
+        dsc.setPassword(pwd); // 数据库密码（在 application.properties 文件里配置）
         dsc.setUrl("jdbc:mysql://localhost:3306/cqutcrm?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai");
         mpg.setDataSource(dsc);
- 
+
+        String tables = properties.getProperty(ConfigUtil.DATASOURCE_UTIL_TABLES);
+        if (tables == null || tables.isEmpty()) {
+            throw new Exception("Configure tables to generate in config.properties");
+        }
+        String[] tableNames = tables.split(",");
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setInclude("customer"); // 需要生成的表
-       
+        strategy.setInclude(tableNames); // 需要生成的表（在 config.properties 文件里配置）
         mpg.setStrategy(strategy);
  
         // 包配置

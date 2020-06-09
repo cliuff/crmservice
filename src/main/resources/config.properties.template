@@ -1,0 +1,2 @@
+crm.project.dir=C:\\path\\to\\your\\project\\dir
+crm.datasource.tables=tableName1,tableName2
