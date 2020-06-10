@@ -75,7 +75,7 @@ public class SalesController {
 
         CrmResult<Sales> ret = new CrmResult<>();
         ret.setCode(0);
-        ret.setMsg("新增客户成功");
+        ret.setMsg("新增订单成功");
         return ret;
     }
 
