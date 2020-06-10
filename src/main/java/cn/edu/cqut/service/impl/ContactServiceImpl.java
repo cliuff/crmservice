@@ -25,6 +25,13 @@ public class ContactServiceImpl extends ServiceImpl<ContactMapper, Contact> impl
 		// TODO Auto-generated method stub
 		return baseMapper.selectContactByCusNo(cusNo);
 	}
+
+	@Override
+	public List<Contact> getContactByCtName(String ctName,String cusNo) {
+		// TODO Auto-generated method stub
+		return baseMapper.selectContactByCtName(ctName,cusNo);
+	}
+	
 	
 
 }

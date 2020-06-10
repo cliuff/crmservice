@@ -17,4 +17,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IContactService extends IService<Contact> {
 	
 public List<Contact> getContactByCusNo(String cusNo);
+
+public List<Contact> getContactByCtName(String ctName,String cusNo);
 }

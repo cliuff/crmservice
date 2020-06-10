@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author CQUT SE 2020
- * @since 2020-06-08
+ * @since 2020-06-10
  */
 public interface ISalesService extends IService<Sales> {
 

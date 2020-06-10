@@ -10,9 +10,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import cn.edu.cqut.service.IContactService;
+import cn.edu.cqut.service.ICustomerService;
 import cn.edu.cqut.util.CrmResult;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,42 +37,85 @@ import cn.edu.cqut.entity.Customer;
 @CrossOrigin
 @RequestMapping("/contact")
 public class ContactController {
-	private String cusNo;
-	@Autowired
-	private IContactService contactService;
+	private String cusNo1;
+	    private final IContactService contactService;
+	    @Autowired
+	    public ContactController(IContactService contactService) {
+	        this.contactService = contactService;
+	    }
 
 	// 通过CusNo获取到联系人列表
 	@RequestMapping(value = "/getContactByCusNo", method = RequestMethod.POST)
-	public List<Contact> getContactByCusNo(String cusNo) {
-		System.out.println("cusNo is:" + cusNo);
-		List<Contact> contactLists = contactService.getContactByCusNo(cusNo);
-		this.cusNo = cusNo;
+	public CrmResult<Contact> getContactByCusNo( @RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "2") Integer limit,
 
-		return contactLists;
+	Contact contact) {
+		QueryWrapper<Contact> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("cusNo", contact.getCusNo());//第二个cusNo是前台对应where中的数值
+		
+		  if (contact.getCtName() != null) {
+			  queryWrapper.like("ctName", contact.getCtName()); //第一个参数是字段名
+	        }
+			
+		
+		
+		Page<Contact> page2 = contactService.page(new Page<Contact>(page, limit), queryWrapper);
 
-		/* return contactService.getContactByCusNo(cusNo); */
-
+	
+		CrmResult<Contact> ret = new CrmResult<>();
+		ret.setCode(0);
+		ret.setCount(page2.getTotal());
+		ret.setData(page2.getRecords());
+		return ret;
+		
 	}
 
-	 @RequestMapping(value = "/contactsByCusNo"/*, method = RequestMethod.POST*/)
-	public CrmResult<Contact> getAllContactsByCusNo(
-			@ApiParam(value = "要查询的页码", required = true) @RequestParam(defaultValue = "1") Integer page, // page请求的页码,默认为1
-			@ApiParam(value = "每页的行数", required = true) @RequestParam(defaultValue = "10") Integer limit// limit每页的行数，默认为10
-	/* Customer customer */) {
-		/*
-		 * QueryWrapper<Customer> qw = new QueryWrapper<>(); if (customer.getCusName()
-		 * != null) { qw.like("cusName", customer.getCusName()); //第一个参数是字段名 }
-		 */
-		List<Contact> contactLists = getContactByCusNo(cusNo);
-        System.out.print(contactLists.size());
-		long count = (long) contactLists.size();
-		Long counts = (Long) count;
+	
+	@RequestMapping("/updateContact")
+	public CrmResult<Contact> updateCustomer(Contact contact) {
+		contactService.updateById(contact); // 根据主键更新表
 
 		CrmResult<Contact> ret = new CrmResult<>();
 		ret.setCode(0);
-		ret.setMsg("有联系人");
-		ret.setCount(counts);// 表里的记录总数
-		ret.setData(contactLists); // 这页的数据列表
+		ret.setMsg("更新客户成功");
+		return ret;
+	}
+
+	@RequestMapping("/addContact")
+	public CrmResult<Contact> addContact(Contact contact) {
+		String s = contact.getCusNo();
+		/* System.out.print("添加联系人的客户编号"+s); */
+
+		contactService.save(contact);
+
+		CrmResult<Contact> ret = new CrmResult<>();
+		ret.setCode(0);
+		ret.setMsg("新增联系人成功");
+		return ret;
+	}
+
+	@RequestMapping("/delContact")
+	public CrmResult<Contact> delContacts(String[] ids) {
+		contactService.removeByIds(Arrays.asList(ids));
+		CrmResult<Contact> ret = new CrmResult<>();
+		ret.setCode(0);
+		ret.setMsg("删除联系人成功");
+		return ret;
+	}
+
+	@RequestMapping("/lookContactByctName")
+	public CrmResult<Contact> delContacts(String ctName, String cusNo) {
+		System.out.print("查询联系人的姓名" + ctName);
+		System.out.print("查询联系人的客户编号" + cusNo);
+		List<Contact> contacts = contactService.getContactByCtName(ctName, cusNo);
+
+		long count = (long) contacts.size();
+		Long counts = (Long) count;
+		CrmResult<Contact> ret = new CrmResult<>();
+		ret.setCode(0);
+		ret.setMsg("查询联系人成功");
+		ret.setCount(counts);
+		ret.setData(contacts); // 这页的数据列表
 		return ret;
 	}
 
