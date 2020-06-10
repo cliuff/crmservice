@@ -19,4 +19,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface ContactMapper extends BaseMapper<Contact> {
 	@Select("select * from contact where cusNo=#{cusNo}")
 	public List<Contact> selectContactByCusNo(String cusNo);
+	
+	@Select("select * from contact where ctName=#{ctName} and cusNo=#{cusNo}")
+	public List<Contact> selectContactByCtName(String ctName,String cusNo);
 }

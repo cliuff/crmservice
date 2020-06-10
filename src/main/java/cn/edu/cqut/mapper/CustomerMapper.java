@@ -42,5 +42,7 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 			Page<Customer> page,
 			@Param(Constants.WRAPPER) QueryWrapper<Customer> queryWrapper
 	);
-
+	
+@Select("select cusName from customer where cusNo=#{cusNo}")
+public String selectCusNameByCusNo(String cusNo);
 }
