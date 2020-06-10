@@ -17,6 +17,7 @@ public class CrmserviceApplication {
 		SpringApplication.run(CrmserviceApplication.class, args);
 	}
 	
+	
 	/**
 	 * 注入MyBatis的分页插件
 	 * @return

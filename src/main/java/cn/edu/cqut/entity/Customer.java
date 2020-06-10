@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -53,6 +54,19 @@ public class Customer extends Model<Customer> {
     @ApiModelProperty("客户满意度")
     @TableField("cusSatisfied")
     private String cusSatisfied;
+    
+
+    @TableField(exist = false)
+    private List<Contact> contacts;
+
+    public List<Contact> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
+	}
+
 
     
     public String getCusSatisfied() {

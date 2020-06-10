@@ -1,6 +1,9 @@
 package cn.edu.cqut.service;
 
 import cn.edu.cqut.entity.Contact;
+
+import java.util.List;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,5 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-06-08
  */
 public interface IContactService extends IService<Contact> {
-
+	
+public List<Contact> getContactByCusNo(String cusNo);
 }

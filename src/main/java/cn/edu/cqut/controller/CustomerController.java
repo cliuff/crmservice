@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -28,12 +29,16 @@ import java.util.Arrays;
 @CrossOrigin
 @Api(tags = "客户管理")
 public class CustomerController {
+    private final ICustomerService customerService;
+
     @Autowired
-    private ICustomerService customerService;
+    public CustomerController(ICustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @ApiOperation(value = "分页返回客户信息12456",
             notes = "分页查询客户信息，默认返回第一页，每页10行。还可以根据cusName模糊查询")
-    @RequestMapping(value = "/customers"/*, method = RequestMethod.POST*/)
+    @RequestMapping(value = "/customers", method = RequestMethod.POST)
     public CrmResult<Customer> getAllCustomer(
             @ApiParam(value = "要查询的页码", required = true)
             @RequestParam(defaultValue = "1")
@@ -89,5 +94,11 @@ public class CustomerController {
         ret.setMsg("删除客户成功");
         return ret;
     }
+    
+    @RequestMapping(value="/getCustomerWithContact",method = RequestMethod.POST)
+	public List<Customer> getCustomerWithContact(){
+		return customerService.getCustomerWithContact();
+	}
+
 }
 
