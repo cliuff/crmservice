@@ -26,8 +26,8 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
 	}//实现Mapper层的对应方法
 
 	@Override
-	public void getTotalTransactionAmount(Page<Customer> page, QueryWrapper<Customer> queryWrapper) {
-		baseMapper.selectTotalTransactionAmount(page, queryWrapper);
+	public Page<Customer> getTotalTransactionAmount(Page<Customer> page, QueryWrapper<Customer> queryWrapper) {
+		return baseMapper.selectTotalTransactionAmount(page, queryWrapper);
 	}
 
 }

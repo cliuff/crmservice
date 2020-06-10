@@ -19,6 +19,6 @@ public interface ICustomerService extends IService<Customer> {
 	
 	public List<Customer> getCustomerWithContact();
 
-	public void getTotalTransactionAmount(Page<Customer> page, QueryWrapper<Customer> queryWrapper);
+	public Page<Customer> getTotalTransactionAmount(Page<Customer> page, QueryWrapper<Customer> queryWrapper);
 
 }

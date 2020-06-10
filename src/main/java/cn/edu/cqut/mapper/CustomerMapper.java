@@ -38,7 +38,7 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 					select = "cn.edu.cqut.mapper.SalesMapper.selectCustomersTotalAmount",
 					fetchType = FetchType.EAGER))
 	})
-	public void selectTotalTransactionAmount(
+	public Page<Customer> selectTotalTransactionAmount(
 			Page<Customer> page,
 			@Param(Constants.WRAPPER) QueryWrapper<Customer> queryWrapper
 	);
