@@ -70,7 +70,7 @@ public class Customer extends Model<Customer> {
     public void setCusNo(String cusNo) {
         this.cusNo = cusNo;
     }
-
+    
     public String getCusName() {
         return cusName;
     }
