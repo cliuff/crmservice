@@ -1,9 +1,7 @@
 package cn.edu.cqut.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-
-import io.swagger.annotations.ApiModelProperty;
-
+import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -14,27 +12,26 @@ import java.io.Serializable;
  * </p>
  *
  * @author CQUT SE 2020
- * @since 2020-06-08
+ * @since 2020-06-10
  */
 public class Sales extends Model<Sales> {
 
     private static final long serialVersionUID=1L;
 
-    
     @TableId("orderNo")
     private Integer orderNo;
 
     @TableField("orderCustomerNo")
     private String orderCustomerNo;
 
-    @TableField("orderSalesNo")
-    private Integer orderSalesNo;
+    @TableField("orderSalesmanNo")
+    private Integer orderSalesmanNo;
 
     @TableField("orderAmount")
     private Double orderAmount;
 
     @TableField("orderTime")
-    private Long orderTime;
+    private LocalDate orderTime;
 
 
     public Integer getOrderNo() {
@@ -53,12 +50,12 @@ public class Sales extends Model<Sales> {
         this.orderCustomerNo = orderCustomerNo;
     }
 
-    public Integer getOrderSalesNo() {
-        return orderSalesNo;
+    public Integer getOrderSalesmanNo() {
+        return orderSalesmanNo;
     }
 
-    public void setOrderSalesNo(Integer orderSalesNo) {
-        this.orderSalesNo = orderSalesNo;
+    public void setOrderSalesmanNo(Integer orderSalesmanNo) {
+        this.orderSalesmanNo = orderSalesmanNo;
     }
 
     public Double getOrderAmount() {
@@ -69,11 +66,11 @@ public class Sales extends Model<Sales> {
         this.orderAmount = orderAmount;
     }
 
-    public Long getOrderTime() {
+    public LocalDate getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(Long orderTime) {
+    public void setOrderTime(LocalDate orderTime) {
         this.orderTime = orderTime;
     }
 
@@ -87,7 +84,7 @@ public class Sales extends Model<Sales> {
         return "Sales{" +
         "orderNo=" + orderNo +
         ", orderCustomerNo=" + orderCustomerNo +
-        ", orderSalesNo=" + orderSalesNo +
+        ", orderSalesmanNo=" + orderSalesmanNo +
         ", orderAmount=" + orderAmount +
         ", orderTime=" + orderTime +
         "}";
