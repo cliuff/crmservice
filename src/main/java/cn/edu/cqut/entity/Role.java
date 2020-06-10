@@ -1,9 +1,14 @@
 package cn.edu.cqut.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 
 /**
@@ -20,14 +25,19 @@ public class Role extends Model<Role> {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-
+    
+    @TableField("role_name")
     private String roleName;
-
+    
+    @TableField("description")
     private String description;
-
+    
+    @TableField("is_run")
     private Integer isRun;
-
-    private LocalDateTime createTime;
+    
+    @TableField("create_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 
 
     public Integer getId() {
@@ -62,12 +72,12 @@ public class Role extends Model<Role> {
         this.isRun = isRun;
     }
 
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
+    public void setCreateTime(Date date) {
+        this.createTime = date;
     }
 
     @Override
