@@ -54,10 +54,20 @@ public class Customer extends Model<Customer> {
     @ApiModelProperty("客户满意度")
     @TableField("cusSatisfied")
     private String cusSatisfied;
-    
 
     @TableField(exist = false)
     private List<Contact> contacts;
+
+    @TableField(exist = false)
+    private Double transactionAmount;
+
+    public Double getTransactionAmount() {
+        return transactionAmount;
+    }
+
+    public void setTransactionAmount(Double transactionAmount) {
+        this.transactionAmount = transactionAmount;
+    }
 
     public List<Contact> getContacts() {
 		return contacts;
@@ -67,8 +77,6 @@ public class Customer extends Model<Customer> {
 		this.contacts = contacts;
 	}
 
-
-    
     public String getCusSatisfied() {
 		return cusSatisfied;
 	}
@@ -84,7 +92,7 @@ public class Customer extends Model<Customer> {
     public void setCusNo(String cusNo) {
         this.cusNo = cusNo;
     }
-    
+
     public String getCusName() {
         return cusName;
     }
