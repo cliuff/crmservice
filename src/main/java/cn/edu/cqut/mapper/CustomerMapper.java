@@ -1,15 +1,14 @@
 package cn.edu.cqut.mapper;
 
 import cn.edu.cqut.entity.Customer;
-
-import java.util.List;
-import org.apache.ibatis.annotations.Many;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import java.util.List;
 
 /**
  * <p>
@@ -32,5 +31,16 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 	})
 	public List<Customer> selectCustomerWithContact();
 
+	@Select("select cusNo, cusName from customer ${ew.customSqlSegment}")
+	@Results({
+			@Result(column = "cusNo", property = "cusNo"),
+			@Result(column = "cusNo", property = "transactionAmount", many = @Many(
+					select = "cn.edu.cqut.mapper.SalesMapper.selectCustomersTotalAmount",
+					fetchType = FetchType.EAGER))
+	})
+	public void selectTotalTransactionAmount(
+			Page<Customer> page,
+			@Param(Constants.WRAPPER) QueryWrapper<Customer> queryWrapper
+	);
 
 }

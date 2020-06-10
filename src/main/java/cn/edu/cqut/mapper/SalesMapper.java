@@ -2,6 +2,9 @@ package cn.edu.cqut.mapper;
 
 import cn.edu.cqut.entity.Sales;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SalesMapper extends BaseMapper<Sales> {
 
+    @Select("select SUM(orderAmount) transactionAmount from sales where orderCustomerNo=#{customerNo}")
+    public List<Double> selectCustomersTotalAmount(String customerNo);
 }
