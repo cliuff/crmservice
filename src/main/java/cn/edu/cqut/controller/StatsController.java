@@ -33,16 +33,16 @@ public class StatsController {
             @RequestParam(defaultValue = "10") Integer limit,
             Customer customer,
             String[] date) {
-        QueryWrapper<Customer> qw = new QueryWrapper<>();
+        QueryWrapper<Customer> queryWrapper = new QueryWrapper<>();
         String customerName = customer.getCusName();
         if (customerName != null) {
-            qw.like("cusName", customerName);
+            queryWrapper.like("cusName", customerName);
         }
         if (date != null && date.length == 2) {
-            qw.between("orderTime", date[0], date[1]);
+            queryWrapper.between("orderTime", date[0], date[1]);
         }
         Page<Customer> customerPage = new Page<>(page, limit);
-        customerService.getTotalTransactionAmount(customerPage, qw);
+        customerService.getTotalTransactionAmount(customerPage, queryWrapper);
         CrmResult<Customer> re = new CrmResult<>();
         re.setCode(0);
         re.setMsg("");
@@ -93,13 +93,23 @@ public class StatsController {
         return re;
     }
 
-    public CrmResult<Customer> getLostCustomerRecords() {
-
+    @RequestMapping(value = "/lost-customers", method = RequestMethod.POST)
+    public CrmResult<Customer> getLostCustomerRecords(
+            @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "10") Integer limit,
+            Customer customer) {
+        QueryWrapper<Customer> queryWrapper = new QueryWrapper<>();
+        String customerName = customer.getCusName();
+        if (customerName != null) {
+            queryWrapper.like("cusName", customerName);
+        }
+        Page<Customer> customerPage = new Page<>(page, limit);
+        customerService.getTotalTransactionAmount(customerPage, queryWrapper);
         CrmResult<Customer> re = new CrmResult<>();
         re.setCode(0);
         re.setMsg("");
-        re.setCount(0L);
-        re.setData(null);
+        re.setCount(customerPage.getTotal());
+        re.setData(customerPage.getRecords());
         return re;
     }
 }

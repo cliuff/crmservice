@@ -18,6 +18,11 @@ import cn.edu.cqut.util.CrmResult;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -33,14 +38,20 @@ import org.springframework.stereotype.Controller;
 @CrossOrigin
 @RequestMapping("/record")
 public class RecordController {
+	public static String cusName="";
 	
 	private final IRecordService recordService;
+	/* private final ICustomerService customerService; */
 
     @Autowired
     public RecordController(IRecordService recordService) {
         this.recordService = recordService;
     }
 
+	/*
+	 * @Autowired public CustomerController( ICustomerService customerService) {
+	 * this.customerService=new CustomerServiceImpl(); }
+	 */
     @ApiOperation(value = "分页返回客户信息12456",
             notes = "分页查询客户信息，默认返回第一页，每页10行。还可以根据cusName模糊查询")
     @RequestMapping(value = "/getAllRecords", method = RequestMethod.POST)
@@ -56,8 +67,8 @@ public class RecordController {
 		/* recordService.selectRecordswithCusName(page, queryWrapper); */
     	
         QueryWrapper<Record> qw = new QueryWrapper<>();
-        if (record.getCusName() != null) {
-            qw.like("cusName",record.getCusName()); //第一个参数是字段名
+        if (record.getCusNo() != null) {
+            qw.like("cusNo",record.getCusNo()); //第一个参数是字段名
         }
         Page<Record> pageRecords = new Page<>(page, limit);
         recordService.selectRecordswithCusName(pageRecords, qw);
@@ -68,7 +79,42 @@ public class RecordController {
         ret.setData(pageRecords.getRecords()); //这页的数据列表
         return ret;
     }
+    
+    @RequestMapping("/updateRecord")
+    public CrmResult<Record> updateRecord(Record record) {
+        recordService.updateById(record);  //根据主键更新表
+
+        CrmResult<Record> ret = new CrmResult<>();
+        ret.setCode(0);
+        ret.setMsg("更新记录成功");
+        return ret;
+    }
 	
+    @RequestMapping("/addRecord")
+    public CrmResult<Record> addCustomer(Record record) {
+		/* record.setrDate("2020-05-22"); *////////////////要改！！！！！！！！！！！！
+    	 record.setrDate(LocalDate.now());
+        recordService.save(record);
+       cusName=record.getCusName();
+        CrmResult<Record> ret = new CrmResult<>();
+        ret.setCode(0);
+        ret.setMsg("新增记录成功");
+        return ret;
+    }
+    
+    @RequestMapping("/delRecord")
+    public CrmResult<Record> delRecord(String[] ids) {
+      recordService.removeByIds(Arrays.asList(ids));
+
+        CrmResult<Record> ret = new CrmResult<>();
+        System.out.println("删除成功");
+        ret.setCode(0);
+        ret.setMsg("删除客户成功");
+        return ret;
+    }
+    
+    
+
 
 }
 
