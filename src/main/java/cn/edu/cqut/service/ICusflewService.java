@@ -5,7 +5,11 @@ import cn.edu.cqut.entity.Customer;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -19,4 +23,8 @@ public interface ICusflewService extends IService<Cusflew> {
 	public List<Customer> getOrCustomersOverSixMonths();
 	public boolean isExitCusNo(String cusNo);
 
+	public Page<Customer> getLost(
+			Page<Customer> page,
+			@Param(Constants.WRAPPER) QueryWrapper<Customer> queryWrapper
+	);
 }

@@ -16,8 +16,5 @@ public interface SalesMapper extends BaseMapper<Sales> {
 
     @Select("select SUM(orderAmount) transactionAmount from sales where orderCustomerNo=#{customerNo}")
     public Double selectCustomersTotalAmount(String customerNo);
-    
-    
-    
 
 }

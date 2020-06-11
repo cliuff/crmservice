@@ -49,19 +49,6 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 	public List<SimpleCategory> selectCustomerComposition(
 			@Param(Constants.WRAPPER) QueryWrapper<Customer> queryWrapper);
 
-	@Select("select * from customer ${ew.customSqlSegment}")
-	@Results({
-			@Result(column = "cusNo", property = "cusNo"),
-			@Result(column = "cusNo", property = "transactionAmount", one = @One(
-					select = "cn.edu.cqut.mapper.SalesMapper.selectCustomersTotalAmount",
-					fetchType = FetchType.EAGER)
-			)
-	})
-	public Page<Customer> selectLostCustomers(
-			Page<Customer> page,
-			@Param(Constants.WRAPPER) QueryWrapper<Customer> queryWrapper
-	);
-
 @Select("select cusName from customer where cusNo=#{cusNo}")
 public String selectCusNameByCusNo(String cusNo);
 

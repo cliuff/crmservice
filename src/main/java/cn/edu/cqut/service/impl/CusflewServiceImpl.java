@@ -4,6 +4,8 @@ import cn.edu.cqut.entity.Cusflew;
 import cn.edu.cqut.entity.Customer;
 import cn.edu.cqut.mapper.CusflewMapper;
 import cn.edu.cqut.service.ICusflewService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import java.util.List;
@@ -39,6 +41,10 @@ public class CusflewServiceImpl extends ServiceImpl<CusflewMapper, Cusflew> impl
 		return false;
 	}
 
-	
+	@Override
+	public Page<Customer> getLost(
+			Page<Customer> page, QueryWrapper<Customer> queryWrapper) {
+		return baseMapper.selectLost(page, queryWrapper);
+	}
 
 }

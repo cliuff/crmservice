@@ -1,7 +1,9 @@
 package cn.edu.cqut.controller;
 
 import cn.edu.cqut.entity.Customer;
+import cn.edu.cqut.service.ICusflewService;
 import cn.edu.cqut.service.ICustomerService;
+import cn.edu.cqut.service.ServiceService;
 import cn.edu.cqut.stats.SimpleCategory;
 import cn.edu.cqut.util.CustomResult;
 import cn.edu.cqut.util.CrmResult;
@@ -17,14 +19,22 @@ import java.util.*;
 @RequestMapping("/stats")
 @CrossOrigin
 public class StatsController {
-    private final ICustomerService customerService;
     public static final int CUSTOMER_COL_RANK = 0;
     public static final int CUSTOMER_COL_CREDIT = 1;
     public static final int CUSTOMER_COL_SATISFACTION = 2;
 
+    private final ICustomerService customerService;
+    private final ICusflewService lostCustomerService;
+    private final ServiceService serviceService;
+
     @Autowired
-    public StatsController(ICustomerService customerService) {
+    public StatsController(
+            ICustomerService customerService,
+            ICusflewService lostCustomerService,
+            ServiceService serviceService) {
         this.customerService = customerService;
+        this.lostCustomerService = lostCustomerService;
+        this.serviceService = serviceService;
     }
 
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
@@ -104,12 +114,39 @@ public class StatsController {
             queryWrapper.like("cusName", customerName);
         }
         Page<Customer> customerPage = new Page<>(page, limit);
-        customerService.getTotalTransactionAmount(customerPage, queryWrapper);
+        lostCustomerService.getLost(customerPage, queryWrapper);
         CrmResult<Customer> re = new CrmResult<>();
         re.setCode(0);
         re.setMsg("");
         re.setCount(customerPage.getTotal());
         re.setData(customerPage.getRecords());
+        return re;
+    }
+
+    @RequestMapping(value = "/service-composition", method = RequestMethod.POST)
+    public CustomResult getServiceComposition() {
+        String columnName = "服务类型";
+        String column = "service_type";
+        QueryWrapper<Customer> queryWrapper = new QueryWrapper<>();
+        queryWrapper.groupBy(column);
+        queryWrapper.select(column + " name", "count(*) count");
+        String title = "服务构成";
+
+        List<SimpleCategory> categoryList = serviceService.getServiceComposition(queryWrapper);
+        List<Object[]> rows = new ArrayList<>(categoryList.size());
+        for (SimpleCategory simpleCategory : categoryList) {
+            rows.add(simpleCategory.toArray());
+        }
+
+        JsonJ data = new JsonJ();
+        data.set("title", title);
+        data.set("columnName", columnName);
+        data.set("rows", rows);
+
+        CustomResult re = new CustomResult(data);
+        re.setCode(0);
+        re.setMsg("");
+        re.setCount(1L);
         return re;
     }
 }
