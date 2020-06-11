@@ -3,23 +3,28 @@ package cn.edu.cqut.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import cn.edu.cqut.entity.Menu;
 import cn.edu.cqut.entity.Role;
 import cn.edu.cqut.entity.User;
+import cn.edu.cqut.service.IMenuService;
 import cn.edu.cqut.service.IRoleService;
 import cn.edu.cqut.service.IUserService;
 import cn.edu.cqut.util.CrmResult;
+import cn.edu.cqut.util.MenuStage;
 import io.swagger.annotations.ApiParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -38,9 +43,11 @@ import org.springframework.stereotype.Controller;
 @CrossOrigin
 @RequestMapping("/role")
 public class RoleController {
-	 @Autowired
+	 	@Autowired
 	    private IRoleService iRoleService;
-
+	 	@Autowired
+	    private IMenuService iMenuService;
+	 	
 	    @RequestMapping(value = "/search")
 	    public CrmResult<Role> getAllRole(
 	            @ApiParam(value = "要查询的页码", required = true)
@@ -53,15 +60,9 @@ public class RoleController {
 	    	
 	        QueryWrapper<Role> qw = new QueryWrapper<>();
 	        
-//	        if (user.getUserName() != null && user.getTel() != null) {
-//	            qw.like("count_no", user.getCountNo());
-//	            qw.or();
-//	            qw.like("user_name", user.getUserName()); //第一个参数是字段名
-//	            qw.or();
-//	            qw.like("tel", user.getTel());
-//	            qw.or();
-//	            qw.like("work_status", user.getWorkStatus());
-//	        }
+	        if (role.getRoleName() != null) {
+	            qw.like("role_name", role.getRoleName());
+	        }
 	        
 	        Page<Role> pageRole = iRoleService.page(
 	                new Page<>(page, limit), qw);
@@ -124,5 +125,36 @@ public class RoleController {
 //	        ret.setData(list);
 //	        return ret;
 //	    }
+	    
+	    @ApiIgnore
+	    @RequestMapping(value="/selectMenuNameById",method = RequestMethod.GET)
+	    public List<MenuStage> selectMenuNameById(Integer id){
+//	    	结果
+	    	List<MenuStage> menuStages = new ArrayList<>();
+	    	List<String> menu = new ArrayList<>();
+//	    	一级菜单
+	    	List<Menu> list= iMenuService.selectFirstMenu(id);
+	    	List<HashMap<String, String>> menus= new ArrayList<>();
+	    	
+	    	
+	    	for (int i = 0; i < list.size(); i++) {
+	    		MenuStage menuStage = new MenuStage();
+	    		HashMap<String, String> map = new HashMap<>();
+	    		
+	    		menuStage.setTitle(list.get(i).getName());
+	    		
+	    		menu = iRoleService.selectMenuNameById(list.get(i).getId());
+	    		
+	    		//	    	设置子级菜单
+	    		for (int j = 0; j < menu.size(); j++) {
+					map.put("title",menu.get(j));
+				}
+	    		menus.add(map);
+				menuStage.setChildren(menus);
+//				添加
+				menuStages.add(menuStage);								
+			}
+	    	return menuStages;
+	    }
 }
 

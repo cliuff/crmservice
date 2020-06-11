@@ -1,6 +1,7 @@
 package cn.edu.cqut.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -19,16 +20,21 @@ public class Menu extends Model<Menu> {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-
+    
+    @TableField("name")
     private String name;
-
+    
+    @TableField("stage")
     private String stage;
-
+    
+    @TableField("icon")
     private String icon;
 
+    @TableField("is_display")
     private Integer isDisplay;
 
-    private String parent;
+    @TableField("parent")
+    private Integer parent;
 
 
     public Integer getId() {
@@ -71,11 +77,11 @@ public class Menu extends Model<Menu> {
         this.isDisplay = isDisplay;
     }
 
-    public String getParent() {
+    public Integer getParent() {
         return parent;
     }
 
-    public void setParent(String parent) {
+    public void setParent(Integer parent) {
         this.parent = parent;
     }
 

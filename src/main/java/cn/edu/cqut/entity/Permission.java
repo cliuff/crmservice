@@ -1,9 +1,11 @@
 package cn.edu.cqut.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.io.Serializable;
 
 /**
@@ -20,14 +22,18 @@ public class Permission extends Model<Permission> {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-
+    
+    @TableField("permission")
     private String permission;
-
+    
+    @TableField("url")
     private String url;
 
+    @TableField("description")
     private String description;
 
-    private LocalDateTime createTime;
+    @TableField("create_time")
+    private Date createTime;
 
 
     public Integer getId() {
@@ -62,11 +68,11 @@ public class Permission extends Model<Permission> {
         this.description = description;
     }
 
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
