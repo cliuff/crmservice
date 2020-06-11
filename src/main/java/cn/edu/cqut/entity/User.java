@@ -1,9 +1,12 @@
 package cn.edu.cqut.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -19,15 +22,20 @@ public class User extends Model<User> {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-
+    
+    @TableField("count_no")
     private String countNo;
-
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField("user_name")
     private String userName;
-
+    
+    @TableField("pwd")
     private String pwd;
-
+    
+    @TableField("tel")
     private String tel;
-
+    
+    @TableField("work_status")
     private String workStatus;
 
 

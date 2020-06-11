@@ -25,21 +25,27 @@ public class StatsController {
     public CrmResult<Customer> getCustomers(
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer limit,
-            Customer customer) {
+            Customer customer,
+            String[] date) {
         QueryWrapper<Customer> qw = new QueryWrapper<>();
-        if (customer.getCusName() != null) {
-            qw.like("cusName", customer.getCusName()); //第一个参数是字段名
+        String customerName = customer.getCusName();
+        if (customerName != null) {
+            qw.like("cusName", customerName);
         }
-        Page<Customer> pageCustomer = customerService.page(new Page<>(page, limit), qw);
-
-        CrmResult<Customer> ret = new CrmResult<>();
-        ret.setCode(0);
-        ret.setMsg("");
-        ret.setCount(pageCustomer.getTotal());//表里的记录总数
-        ret.setData(pageCustomer.getRecords()); //这页的数据列表
-        return ret;
+        if (date != null && date.length == 2) {
+            qw.between("orderTime", date[0], date[1]);
+        }
+        Page<Customer> customerPage = new Page<>(page, limit);
+        customerService.getTotalTransactionAmount(customerPage, qw);
+        CrmResult<Customer> re = new CrmResult<>();
+        re.setCode(0);
+        re.setMsg("");
+        re.setCount(customerPage.getTotal());
+        re.setData(customerPage.getRecords());
+        return re;
     }
 
+    @RequestMapping(value = "/=", method = RequestMethod.POST)
     public CrmResult<Map.Entry<Customer, Double>> getCustomersWithSalesAmount() {
 
         CrmResult<Map.Entry<Customer, Double>> re = new CrmResult<>();

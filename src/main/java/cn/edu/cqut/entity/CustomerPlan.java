@@ -2,6 +2,9 @@ package cn.edu.cqut.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -12,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author CQUT SE 2020
- * @since 2020-06-09
+ * @since 2020-06-11
  */
 public class CustomerPlan extends Model<CustomerPlan> {
 
@@ -21,14 +24,23 @@ public class CustomerPlan extends Model<CustomerPlan> {
     @TableId("cusPlanId")
     private Integer cusPlanId;
 
+    @TableField("time")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate time;
 
+    @TableId("context")
     private String context;
 
+    @TableId("result")
     private String result;
+    
+    @TableId("UserName")
+    private String UserName;
 
     @TableField("sale_Chance_Id")
     private Integer saleChanceId;
+
+    private String userName;
 
 
     public Integer getCusPlanId() {
@@ -71,6 +83,14 @@ public class CustomerPlan extends Model<CustomerPlan> {
         this.saleChanceId = saleChanceId;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.cusPlanId;
@@ -84,6 +104,7 @@ public class CustomerPlan extends Model<CustomerPlan> {
         ", context=" + context +
         ", result=" + result +
         ", saleChanceId=" + saleChanceId +
+        ", userName=" + userName +
         "}";
     }
 }

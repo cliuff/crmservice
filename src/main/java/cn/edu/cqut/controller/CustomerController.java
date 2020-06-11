@@ -62,8 +62,6 @@ public class CustomerController {
         return ret;
     }
 
-
-
     @ApiIgnore
     @RequestMapping("/updateCustomer")
     public CrmResult<Customer> updateCustomer(Customer customer) {
