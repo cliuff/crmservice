@@ -2,6 +2,9 @@ package cn.edu.cqut.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -27,18 +30,23 @@ public class SaleChance extends Model<SaleChance> {
     @TableField("sale_Source")
     private String saleSource;
 
+    @TableField("success")
     private String success;
 
+    @TableField("profile")
     private String profile;
 
+    @TableField("descript")
     private String descript;
 
     @TableField("createPerson")
     private String createPerson;
 
     @TableField("createTime")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate createTime;
 
+    @TableField("assign")
     private String assign;
 
     @TableField("assignTime")
