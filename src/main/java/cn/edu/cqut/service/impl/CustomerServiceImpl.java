@@ -24,5 +24,10 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
 		return baseMapper.selectCustomerWithContact();
 	}//实现Mapper层的对应方法
 
+	@Override
+	public List<Customer> getAllCustomer() {
+		return baseMapper.selectAllCustomer();
+	}
+
 
 }

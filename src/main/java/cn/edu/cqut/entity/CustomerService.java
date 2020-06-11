@@ -1,7 +1,9 @@
 package cn.edu.cqut.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
@@ -13,9 +15,9 @@ public class CustomerService extends Model<CustomerService> {
 	private static final long serialVersionUID=1L;
 
     @ApiModelProperty("编号")
-    @TableId("id")
+	@TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-    
+
     @ApiModelProperty("客户编号")
     @TableId("customer_id")
     private String customerId;
@@ -23,15 +25,15 @@ public class CustomerService extends Model<CustomerService> {
     @ApiModelProperty("服务内容")
     @TableId("service_content")
     private String serviceContent;
-    
+
     @ApiModelProperty("服务类型")
     @TableId("service_type")
     private String serviceType;
-    
+
     @ApiModelProperty("创建人")
     @TableId("builder")
     private String builder;
-    
+
     @ApiModelProperty("创建时间")
     @TableId("create_time")
     private Date createTime;
@@ -39,31 +41,31 @@ public class CustomerService extends Model<CustomerService> {
     @ApiModelProperty("服务状态")
     @TableId("service_status")
     private String serviceStatus;
-    
+
     @ApiModelProperty("分配者")
     @TableId("allocator")
     private String allocator;
-    
+
     @ApiModelProperty("分配时间")
     @TableId("allocate_time")
     private Date allocateTime;
-    
+
     @ApiModelProperty("处理方法")
     @TableId("handle_method")
     private String handleMethod;
-    
+
     @ApiModelProperty("处理人")
     @TableId("handler")
     private String handler;
-    
+
     @ApiModelProperty("处理时间")
     @TableId("handle_time")
     private Date handleTime;
-    
+
     @ApiModelProperty("处理结果")
     @TableId("handle_result")
     private String handleResult;
-    
+
     @ApiModelProperty("满意度")
     @TableId("satisfaction")
     private Integer satisfaction;
@@ -178,5 +180,30 @@ public class CustomerService extends Model<CustomerService> {
 
 	public void setSatisfaction(Integer satisfaction) {
 		this.satisfaction = satisfaction;
+	}
+
+	@Override
+	protected Serializable pkVal() {
+		return this.id;
+	}
+
+	@Override
+	public String toString() {
+		return "customerService{" +
+				"id=" + id +
+				", customerId=" + customerId +
+				", serviceContent=" + serviceContent +
+				", serviceStatus=" + serviceStatus +
+				", serviceType=" + serviceType +
+				", createTime=" + createTime +
+				", allocator=" + allocator +
+				", allocateTime=" + allocateTime +
+				", builder=" + builder +
+				", handler=" + handler +
+				", handleMethod=" + handleMethod +
+				", handleResult=" + handleResult +
+				", handleTime=" + handleTime +
+				", satisfaction=" + satisfaction +
+				"}";
 	}
 }

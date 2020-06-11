@@ -28,9 +28,20 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 		@Result(column="cusNo",property="contacts",many= @Many(
 				select="cn.edu.cqut.mapper.ContactMapper.selectContactByCusNo",
 				fetchType=FetchType.EAGER))//通过cusNo显示联系人列表
-		
+
 	})
 	public List<Customer> selectCustomerWithContact();
 
-
+	@Select("select * from customer")
+	@Results(id="Customer", value={
+			@Result(column="cusNo", property="cusNo", id=true),
+			@Result(column="cusName", property="cusName"),
+			@Result(column="cusRegion ", property="cusRegion"),
+			@Result(column="cusAddr", property="cusAddr"),
+			@Result(column="cusUrl", property="cusUrl"),
+			@Result(column="cusLevel", property="cusLevel"),
+			@Result(column="cusCredit", property="cusCredit"),
+			@Result(column="cusSatisfied", property="cusSatisfied")
+	})
+	public List<Customer> selectAllCustomer();
 }
