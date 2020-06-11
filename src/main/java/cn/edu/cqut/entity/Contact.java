@@ -32,8 +32,6 @@ public class Contact extends Model<Contact> {
     @TableField("ctTitle")
     private String ctTitle;
 
-    @TableField("ctMemo")
-    private String ctMemo;
 
     @TableField("cusNo")
     private String cusNo;
@@ -79,13 +77,7 @@ public class Contact extends Model<Contact> {
         this.ctTitle = ctTitle;
     }
 
-    public String getCtMemo() {
-        return ctMemo;
-    }
 
-    public void setCtMemo(String ctMemo) {
-        this.ctMemo = ctMemo;
-    }
 
     public String getCusNo() {
         return cusNo;
@@ -108,7 +100,6 @@ public class Contact extends Model<Contact> {
         ", ctGender=" + ctGender +
         ", ctPhone=" + ctPhone +
         ", ctTitle=" + ctTitle +
-        ", ctMemo=" + ctMemo +
         ", cusNo=" + cusNo +
         "}";
     }

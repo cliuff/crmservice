@@ -22,6 +22,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -94,6 +95,7 @@ public class RecordController {
     public CrmResult<Record> addCustomer(Record record) {
 		/* record.setrDate("2020-05-22"); *////////////////要改！！！！！！！！！！！！
     	 record.setrDate(LocalDate.now());
+    	 record.setrNo(UUID.randomUUID().toString().replace("_", "").substring(0, 4));
         recordService.save(record);
        cusName=record.getCusName();
         CrmResult<Record> ret = new CrmResult<>();
