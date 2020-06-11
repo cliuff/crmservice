@@ -90,6 +90,7 @@ public class StatsController {
         }
         QueryWrapper<Customer> queryWrapper = new QueryWrapper<>();
         queryWrapper.groupBy(column);
+        queryWrapper.orderByDesc(column);
         queryWrapper.select(column + " name", "count(*) count");
         String title = "客户构成：" + columnName;
 
