@@ -22,6 +22,7 @@ public class StatsController {
     public static final int CUSTOMER_COL_RANK = 0;
     public static final int CUSTOMER_COL_CREDIT = 1;
     public static final int CUSTOMER_COL_SATISFACTION = 2;
+    public static final int CUSTOMER_COL_REGION = 3;
 
     private final ICustomerService customerService;
     private final ICusflewService lostCustomerService;
@@ -77,6 +78,10 @@ public class StatsController {
             case CUSTOMER_COL_SATISFACTION:
                 column = "cusSatisfied";
                 columnName = "客户满意度";
+                break;
+            case CUSTOMER_COL_REGION:
+                column = "cusRegion";
+                columnName = "所在地区";
                 break;
             case CUSTOMER_COL_RANK: default:
                 column = "cusLevel";
