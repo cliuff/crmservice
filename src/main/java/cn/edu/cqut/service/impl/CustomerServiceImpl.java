@@ -30,6 +30,11 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
 	public Page<Customer> getTotalTransactionAmount(Page<Customer> page, QueryWrapper<Customer> queryWrapper) {
 		return baseMapper.selectTotalTransactionAmount(page, queryWrapper);
 	}
+	@Override
+	public List<Customer> getAllCustomer() {
+		return baseMapper.selectAllCustomer();
+	}
+
 
 	@Override
 	public List<SimpleCategory> getCustomerComposition(QueryWrapper<Customer> queryWrapper) {

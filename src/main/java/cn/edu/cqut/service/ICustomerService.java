@@ -17,8 +17,10 @@ import java.util.List;
  * @since 2020-06-03
  */
 public interface ICustomerService extends IService<Customer> {
-	
+
 	public List<Customer> getCustomerWithContact();
+
+	public List<Customer> getAllCustomer();
 
 	public Page<Customer> getTotalTransactionAmount(Page<Customer> page, QueryWrapper<Customer> queryWrapper);
 

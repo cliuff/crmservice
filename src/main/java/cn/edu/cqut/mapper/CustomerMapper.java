@@ -28,7 +28,7 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 		@Result(column="cusNo",property="contacts",many= @Many(
 				select="cn.edu.cqut.mapper.ContactMapper.selectContactByCusNo",
 				fetchType=FetchType.EAGER))//通过cusNo显示联系人列表
-		
+
 	})
 	public List<Customer> selectCustomerWithContact();
 
@@ -48,7 +48,21 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 	@Select("select ${ew.sqlSelect} FROM customer ${ew.customSqlSegment}")
 	public List<SimpleCategory> selectCustomerComposition(
 			@Param(Constants.WRAPPER) QueryWrapper<Customer> queryWrapper);
-	
+
 @Select("select cusName from customer where cusNo=#{cusNo}")
 public String selectCusNameByCusNo(String cusNo);
+
+
+	@Select("select * from customer")
+	@Results(id="Customer", value={
+			@Result(column="cusNo", property="cusNo", id=true),
+			@Result(column="cusName", property="cusName"),
+			@Result(column="cusRegion ", property="cusRegion"),
+			@Result(column="cusAddr", property="cusAddr"),
+			@Result(column="cusUrl", property="cusUrl"),
+			@Result(column="cusLevel", property="cusLevel"),
+			@Result(column="cusCredit", property="cusCredit"),
+			@Result(column="cusSatisfied", property="cusSatisfied")
+	})
+	public List<Customer> selectAllCustomer();
 }
