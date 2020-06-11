@@ -1,6 +1,7 @@
 package cn.edu.cqut.mapper;
 
 import cn.edu.cqut.entity.Customer;
+import cn.edu.cqut.stats.SimpleCategory;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
@@ -43,6 +44,10 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 			Page<Customer> page,
 			@Param(Constants.WRAPPER) QueryWrapper<Customer> queryWrapper
 	);
+
+	@Select("select ${ew.sqlSelect} FROM customer ${ew.customSqlSegment}")
+	public List<SimpleCategory> selectCustomerComposition(
+			@Param(Constants.WRAPPER) QueryWrapper<Customer> queryWrapper);
 	
 @Select("select cusName from customer where cusNo=#{cusNo}")
 public String selectCusNameByCusNo(String cusNo);

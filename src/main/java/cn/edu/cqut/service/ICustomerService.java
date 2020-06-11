@@ -1,6 +1,7 @@
 package cn.edu.cqut.service;
 
 import cn.edu.cqut.entity.Customer;
+import cn.edu.cqut.stats.SimpleCategory;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -20,5 +21,7 @@ public interface ICustomerService extends IService<Customer> {
 	public List<Customer> getCustomerWithContact();
 
 	public Page<Customer> getTotalTransactionAmount(Page<Customer> page, QueryWrapper<Customer> queryWrapper);
+
+	public List<SimpleCategory> getCustomerComposition(QueryWrapper<Customer> queryWrapper);
 
 }
