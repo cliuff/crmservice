@@ -38,7 +38,7 @@ public class CustomerPlanController {
     private ICustomerPlanService customerplanservice;
 
     @ApiOperation(value = "分页返回客户信息12456",
-            notes = "分页查询客户信息，默认返回第一页，每页10行。还可以根据cusName模糊查询")
+            notes = "分页查询客户信息，默认返回第一页，每页10行。")
     @RequestMapping(value = "/customerPlans", method = RequestMethod.POST)
     public CrmResult<CustomerPlan> getAllCustomerPlan(
             @ApiParam(value = "要查询的页码", required = true)
@@ -50,34 +50,32 @@ public class CustomerPlanController {
             CustomerPlan customerplan) {
         QueryWrapper<CustomerPlan> qw = new QueryWrapper<>();
         if ("妮子".equals(customerplan.getUserName())) {
-            qw.like("saleChanceState", salechance.getSaleChanceState()); //第一个参数是字段名
+            qw.like("userName", customerplan.getUserName()); //第一个参数是字段名
         }
-        Page<SaleChance> pageSaleChance = salechanceservice.page(
+        Page<CustomerPlan> pageCustomerPlan = customerplanservice.page(
                 new Page<>(page, limit), qw);
 
-        CrmResult<SaleChance> ret = new CrmResult<>();
+        CrmResult<CustomerPlan> ret = new CrmResult<>();
         ret.setCode(0);
         ret.setMsg("");
-        ret.setCount(pageSaleChance.getTotal());//表里的记录总数
-        ret.setData(pageSaleChance.getRecords()); //这页的数据列表
+        ret.setCount(pageCustomerPlan.getTotal());//表里的记录总数
+        ret.setData(pageCustomerPlan.getRecords()); //这页的数据列表
         return ret;
     }
         @ApiIgnore
-        @RequestMapping("/updateSaleChance")
-        public CrmResult<SaleChance> updateSaleChance(SaleChance salechance) {
-            salechanceservice.updateById(salechance);  //根据主键更新表
-            CrmResult<SaleChance> ret = new CrmResult<>();
+        @RequestMapping("/updateCustomerPlan")
+        public CrmResult<CustomerPlan> updateSaleChance(CustomerPlan customerplan) {
+        	customerplanservice.updateById(customerplan);  //根据主键更新表
+            CrmResult<CustomerPlan> ret = new CrmResult<>();
             ret.setCode(0);
             ret.setMsg("更新销售机会成功");
             return ret;
         }
 
-        @RequestMapping("/assignSaleChance")
-        public CrmResult<SaleChance> assignSaleChance(SaleChance salechance) {
-        	salechance.setAssignTime(LocalDate.now());
-        	salechance.setSaleChanceState("已分配");
-            salechanceservice.updateById(salechance);  //根据主键更新表
-            CrmResult<SaleChance> ret = new CrmResult<>();
+        @RequestMapping("/assignCustomerPlan")
+        public CrmResult<CustomerPlan> assignSaleChance(CustomerPlan customerplan) {
+        	 //根据主键更新表
+            CrmResult<CustomerPlan> ret = new CrmResult<>();
             ret.setCode(0);
             ret.setMsg("更新销售机会成功");
             return ret;
@@ -85,22 +83,20 @@ public class CustomerPlanController {
 
         
         @ApiIgnore
-        @RequestMapping("/addSaleChance")
-        public CrmResult<SaleChance> addSaleChance(SaleChance salechance) {
-        	salechance.setCreateTime(LocalDate.now());
-        	salechance.setSaleChanceState("未分配");
-            salechanceservice.save(salechance);
+        @RequestMapping("/addCustomerPlan")
+        public CrmResult<CustomerPlan> addSaleChance(CustomerPlan customerplan) {
+        	customerplanservice.save(customerplan);
 
-            CrmResult<SaleChance> ret = new CrmResult<>();
+            CrmResult<CustomerPlan> ret = new CrmResult<>();
             ret.setCode(0);
             ret.setMsg("新增客户成功");
             return ret;
         }
 
         @ApiIgnore
-        @RequestMapping("/delSaleChance")
+        @RequestMapping("/delCustomerPlan")
         public CrmResult<SaleChance> delSaleChance(String[] ids) {
-            salechanceservice.removeByIds(Arrays.asList(ids));
+            customerplanservice.removeByIds(Arrays.asList(ids));
             
             CrmResult<SaleChance> ret = new CrmResult<>();
             ret.setCode(0);

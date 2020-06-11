@@ -34,6 +34,7 @@ public class CustomerPlan extends Model<CustomerPlan> {
     @TableId("result")
     private String result;
     
+    @TableId("UserName")
     private String UserName;
 
     @TableField("sale_Chance_Id")
