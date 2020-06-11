@@ -25,11 +25,15 @@ public class StatsController {
     public CrmResult<Customer> getCustomers(
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer limit,
-            Customer customer) {
+            Customer customer,
+            String[] date) {
         QueryWrapper<Customer> qw = new QueryWrapper<>();
         String customerName = customer.getCusName();
         if (customerName != null) {
             qw.like("cusName", customerName);
+        }
+        if (date != null && date.length == 2) {
+            qw.between("orderTime", date[0], date[1]);
         }
         Page<Customer> customerPage = new Page<>(page, limit);
         customerService.getTotalTransactionAmount(customerPage, qw);
@@ -41,6 +45,7 @@ public class StatsController {
         return re;
     }
 
+    @RequestMapping(value = "/=", method = RequestMethod.POST)
     public CrmResult<Map.Entry<Customer, Double>> getCustomersWithSalesAmount() {
 
         CrmResult<Map.Entry<Customer, Double>> re = new CrmResult<>();

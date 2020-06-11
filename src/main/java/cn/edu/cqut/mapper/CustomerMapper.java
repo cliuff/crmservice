@@ -34,9 +34,10 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 	@Select("select cusNo, cusName from customer ${ew.customSqlSegment}")
 	@Results({
 			@Result(column = "cusNo", property = "cusNo"),
-			@Result(column = "cusNo", property = "transactionAmount", many = @Many(
+			@Result(column = "cusNo", property = "transactionAmount", one = @One(
 					select = "cn.edu.cqut.mapper.SalesMapper.selectCustomersTotalAmount",
-					fetchType = FetchType.EAGER))
+					fetchType = FetchType.EAGER)
+			)
 	})
 	public Page<Customer> selectTotalTransactionAmount(
 			Page<Customer> page,
