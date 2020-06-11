@@ -94,11 +94,11 @@ public class CustomerController {
         ret.setMsg("删除客户成功");
         return ret;
     }
-    
-	/*
-	 * @RequestMapping(value="/getCustomerWithContact",method = RequestMethod.POST)
-	 * public List<Customer> getCustomerWithContact(){ return
-	 * customerService.getCustomerWithContact(); }
-	 */
+
+    @RequestMapping(value="/getCustomerWithContact",method = RequestMethod.POST)
+	public List<Customer> getCustomerWithContact(){
+		return customerService.getCustomerWithContact();
+	}
+
 }
 

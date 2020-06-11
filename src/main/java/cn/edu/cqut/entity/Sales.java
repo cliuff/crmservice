@@ -1,9 +1,9 @@
 package cn.edu.cqut.entity;
 
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.time.LocalDate;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+
 import java.io.Serializable;
 
 /**
@@ -31,7 +31,7 @@ public class Sales extends Model<Sales> {
     private Double orderAmount;
 
     @TableField("orderTime")
-    private LocalDate orderTime;
+    private String orderTime;
 
 
     public Integer getOrderNo() {
@@ -66,11 +66,11 @@ public class Sales extends Model<Sales> {
         this.orderAmount = orderAmount;
     }
 
-    public LocalDate getOrderTime() {
+    public String getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(LocalDate orderTime) {
+    public void setOrderTime(String orderTime) {
         this.orderTime = orderTime;
     }
 

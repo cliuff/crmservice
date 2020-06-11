@@ -3,6 +3,7 @@ package cn.edu.cqut.service.impl;
 import cn.edu.cqut.entity.Customer;
 import cn.edu.cqut.mapper.CustomerMapper;
 import cn.edu.cqut.service.ICustomerService;
+import cn.edu.cqut.stats.SimpleCategory;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -28,6 +29,16 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> i
 	@Override
 	public Page<Customer> getTotalTransactionAmount(Page<Customer> page, QueryWrapper<Customer> queryWrapper) {
 		return baseMapper.selectTotalTransactionAmount(page, queryWrapper);
+	}
+	@Override
+	public List<Customer> getAllCustomer() {
+		return baseMapper.selectAllCustomer();
+	}
+
+
+	@Override
+	public List<SimpleCategory> getCustomerComposition(QueryWrapper<Customer> queryWrapper) {
+		return baseMapper.selectCustomerComposition(queryWrapper);
 	}
 
 }
