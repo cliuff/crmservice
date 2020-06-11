@@ -2,7 +2,12 @@ package cn.edu.cqut.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
@@ -25,7 +30,8 @@ public class Record extends Model<Record> {
     private String cusNo;
 
     @TableField("rDate")
-    private LocalDateTime rDate;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private LocalDate rDate;
 
     @TableField("rAddr")
     private String rAddr;
@@ -63,11 +69,11 @@ public class Record extends Model<Record> {
         this.cusNo = cusNo;
     }
 
-    public LocalDateTime getrDate() {
+    public LocalDate getrDate() {
         return rDate;
     }
 
-    public void setrDate(LocalDateTime rDate) {
+    public void setrDate(LocalDate rDate) {
         this.rDate = rDate;
     }
 

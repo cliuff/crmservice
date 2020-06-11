@@ -77,7 +77,7 @@ public class CustomerController {
     @RequestMapping("/addCustomer")
     public CrmResult<Customer> addCustomer(Customer customer) {
         customerService.save(customer);
-
+       
         CrmResult<Customer> ret = new CrmResult<>();
         ret.setCode(0);
         ret.setMsg("新增客户成功");

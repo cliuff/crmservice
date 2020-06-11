@@ -36,6 +36,6 @@ public interface RecordMapper extends BaseMapper<Record> {
 			Page<Record> page,
 			@Param(Constants.WRAPPER) QueryWrapper<Record> queryWrapper
 	);
-
+  
 
 }
