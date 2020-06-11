@@ -42,14 +42,17 @@ public class StatsController {
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer limit,
             Customer customer,
-            String[] date) {
+            String date1,
+            String date2) {
         QueryWrapper<Customer> queryWrapper = new QueryWrapper<>();
         String customerName = customer.getCusName();
         if (customerName != null) {
             queryWrapper.like("cusName", customerName);
         }
-        if (date != null && date.length == 2) {
-            queryWrapper.between("orderTime", date[0], date[1]);
+        if (date1 != null && date2 != null) {
+            queryWrapper.between("orderTime",
+                    "date('" + date1 + "-01-01')",
+                    "date('" + date2 + "-01-01')");
         }
         Page<Customer> customerPage = new Page<>(page, limit);
         customerService.getTotalTransactionAmount(customerPage, queryWrapper);

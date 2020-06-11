@@ -32,14 +32,7 @@ public interface CustomerMapper extends BaseMapper<Customer> {
 	})
 	public List<Customer> selectCustomerWithContact();
 
-	@Select("select cusNo, cusName from customer ${ew.customSqlSegment}")
-	@Results({
-			@Result(column = "cusNo", property = "cusNo"),
-			@Result(column = "cusNo", property = "transactionAmount", one = @One(
-					select = "cn.edu.cqut.mapper.SalesMapper.selectCustomersTotalAmount",
-					fetchType = FetchType.EAGER)
-			)
-	})
+	@Select("select cusNo, cusName, transactionAmount from customer left join (select orderCustomerNo, orderTime, SUM(orderAmount) transactionAmount from sales group by orderCustomerNo) as tranAmount on customer.cusNo=tranAmount.orderCustomerNo ${ew.customSqlSegment}")
 	public Page<Customer> selectTotalTransactionAmount(
 			Page<Customer> page,
 			@Param(Constants.WRAPPER) QueryWrapper<Customer> queryWrapper
