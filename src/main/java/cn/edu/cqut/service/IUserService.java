@@ -15,5 +15,6 @@ import java.util.List;
  */
 public interface IUserService extends IService<User> {
     List<User> getUserByRole();
-
+    
+    public void updateRoleByUserId(Integer roleId,Integer userId);
 }

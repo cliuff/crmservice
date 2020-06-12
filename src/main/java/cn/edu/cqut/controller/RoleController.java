@@ -15,6 +15,7 @@ import cn.edu.cqut.entity.Role;
 import cn.edu.cqut.entity.User;
 import cn.edu.cqut.service.IMenuService;
 import cn.edu.cqut.service.IRoleService;
+import cn.edu.cqut.service.IUserRoleService;
 import cn.edu.cqut.service.IUserService;
 import cn.edu.cqut.util.CrmResult;
 import cn.edu.cqut.util.MenuStage;
@@ -45,6 +46,8 @@ import org.springframework.stereotype.Controller;
 public class RoleController {
 	 	@Autowired
 	    private IRoleService iRoleService;
+	 	@Autowired
+	 	private IUserRoleService iUserRoleService;
 	 	@Autowired
 	    private IMenuService iMenuService;
 	 	
@@ -95,7 +98,7 @@ public class RoleController {
 	    	role.setCreateTime(new Date());
 	    	
 	    	iRoleService.save(role);
-
+	    	iUserRoleService.addUserRoleById(role.getId());
 	        CrmResult<Role> ret = new CrmResult<>();
 	        ret.setCode(0);
 	        ret.setMsg("新增角色成功");

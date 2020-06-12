@@ -23,4 +23,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public List<User> getUserByRole() {
         return baseMapper.getUserByRole();
     }
+
+	@Override
+	public void  updateRoleByUserId(Integer roleId, Integer userId) {
+		baseMapper.updateRoleByUserId(roleId, userId);
+	}
+
+	
 }

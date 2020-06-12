@@ -118,5 +118,11 @@ public class UserController {
 	        ret.setData(list);
 	        return ret;
 	    }
+	    
+	    @ApiIgnore
+	    @RequestMapping("/updateRoleByUserId")
+	    public void updateRoleByUserId(Integer roleId, Integer userId) {
+	    	iUserService.updateRoleByUserId(roleId, userId);	       
+		}
 }
 

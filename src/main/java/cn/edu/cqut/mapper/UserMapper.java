@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -31,5 +32,8 @@ public interface UserMapper extends BaseMapper<User> {
 
     })
     List<User> getUserByRole();
-
+    
+//    修改用户角色,返回角色用户角色表的id
+    @Update("UPDATE user_role set role_id = #{roleId} WHERE user_id in (SELECT id from user WHERE id = #{userId})")
+    public void updateRoleByUserId(Integer roleId,Integer userId);
 }
