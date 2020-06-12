@@ -84,7 +84,6 @@ public class CustomerPlanController {
         	customerplan.setUserName("妮子");
         	customerplan.setSaleChanceId(1016);
         	
-        	customerplanservice.save(customerplan);
 
             CrmResult<CustomerPlan> ret = new CrmResult<>();
             ret.setCode(0);
