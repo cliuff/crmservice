@@ -15,6 +15,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -65,8 +66,9 @@ public class CustomerController {
     @ApiIgnore
     @RequestMapping("/updateCustomer")
     public CrmResult<Customer> updateCustomer(Customer customer) {
+       
+     
         customerService.updateById(customer);  //根据主键更新表
-
         CrmResult<Customer> ret = new CrmResult<>();
         ret.setCode(0);
         ret.setMsg("更新客户成功");
@@ -76,6 +78,9 @@ public class CustomerController {
     @ApiIgnore
     @RequestMapping("/addCustomer")
     public CrmResult<Customer> addCustomer(Customer customer) {
+    	
+    	String cfId = UUID.randomUUID().toString().replace("_", "").substring(0, 4);// 随机生成长度为4的字符串
+    	customer.setCusNo(cfId);
         customerService.save(customer);
        
         CrmResult<Customer> ret = new CrmResult<>();

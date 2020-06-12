@@ -40,11 +40,15 @@ import org.springframework.stereotype.Controller;
 @RequestMapping("/cusflew")
 public class CusflewController {
 	private final ICusflewService cusflewService;
+	private  ICustomerService customerService;
+	
 
 	@Autowired
-	public CusflewController(ICusflewService cusflewService) {
+	public CusflewController(ICusflewService cusflewService,ICustomerService customerService ) {
 		this.cusflewService = cusflewService;
+		this.customerService=customerService;
 	}
+	
 
 	@RequestMapping(value = "/getCusFlews", method = RequestMethod.POST)
 	public CrmResult<Cusflew> getCusFlews(
@@ -58,6 +62,7 @@ public class CusflewController {
 		Page<Cusflew> pageCustomer = cusflewService.page(new Page<>(page, limit), qw);
 
 		CrmResult<Cusflew> ret = new CrmResult<>();
+		
 		ret.setCode(0);
 		ret.setMsg("");
 		ret.setCount(pageCustomer.getTotal());// 表里的记录总数
@@ -66,9 +71,15 @@ public class CusflewController {
 	}
 
 	// 每天凌晨3点触发一次,将超过6个月没下单的客户加入预警流失名单
-	 @Scheduled(cron = "0 0 3 ? * *") //0 27 13 ? * *:表示每天13点27分触发一次
+	 @Scheduled(cron = "0 16 23 ? * *") //0 27 13 ? * *:表示每天13点27分触发一次0 0 3 ? * *
 	public void job()
 	 {
+			/*
+			 * Customer cus=new Customer(); cus.setCusNo("100"); cus.setCusName("朱玉婷");
+			 * cus.setCusRegion("1"); cus.setCusAddr("1"); cus.setCusCredit("1");
+			 * cus.setCusLevel("1"); cus.setCusSatisfied("1"); cus.setCusUrl("1");
+			 * customerService.save(cus); System.out.print("成功" );
+			 */
 		 
 		List<Cusflew> cusflews = new ArrayList<>();
 		

@@ -48,4 +48,10 @@ public interface CusflewMapper extends BaseMapper<Cusflew> {
 	
 	@Select("select * from cusflew where cusNo=#{cusNo}")
 	public List<Cusflew> isExitCusNo(String cusNo);
+
+	@Select("select * from (select * from customer where cusNo in (SELECT cusNo FROM cusflew where cfState='确定流失')) as lost ${ew.customSqlSegment}")
+	public Page<Customer> selectLost(
+			Page<Customer> page,
+			@Param(Constants.WRAPPER) QueryWrapper<Customer> queryWrapper
+	);
 }

@@ -1,9 +1,11 @@
 package cn.edu.cqut.controller;
 
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -31,8 +33,9 @@ import org.springframework.stereotype.Controller;
  * @author CQUT SE 2020
  * @since 2020-06-11
  */
-@Controller
+@RestController
 @RequestMapping("/customerPlan")
+@CrossOrigin
 public class CustomerPlanController {
 	@Autowired
     private ICustomerPlanService customerplanservice;
@@ -49,8 +52,8 @@ public class CustomerPlanController {
                     Integer limit,//limit每页的行数，默认为10
             CustomerPlan customerplan) {
         QueryWrapper<CustomerPlan> qw = new QueryWrapper<>();
-        if ("妮子".equals(customerplan.getUserName())) {
-            qw.like("userName", customerplan.getUserName()); //第一个参数是字段名
+        if (customerplan.getSaleChanceId()!=null) {
+            qw.like("saleChanceId", customerplan.getSaleChanceId()); //第一个参数是字段名
         }
         Page<CustomerPlan> pageCustomerPlan = customerplanservice.page(
                 new Page<>(page, limit), qw);
@@ -68,16 +71,7 @@ public class CustomerPlanController {
         	customerplanservice.updateById(customerplan);  //根据主键更新表
             CrmResult<CustomerPlan> ret = new CrmResult<>();
             ret.setCode(0);
-            ret.setMsg("更新销售机会成功");
-            return ret;
-        }
-
-        @RequestMapping("/assignCustomerPlan")
-        public CrmResult<CustomerPlan> assignSaleChance(CustomerPlan customerplan) {
-        	 //根据主键更新表
-            CrmResult<CustomerPlan> ret = new CrmResult<>();
-            ret.setCode(0);
-            ret.setMsg("更新销售机会成功");
+            ret.setMsg("更新开发计划成功");
             return ret;
         }
 
@@ -89,7 +83,7 @@ public class CustomerPlanController {
 
             CrmResult<CustomerPlan> ret = new CrmResult<>();
             ret.setCode(0);
-            ret.setMsg("新增客户成功");
+            ret.setMsg("新增计划成功");
             return ret;
         }
 
@@ -100,7 +94,7 @@ public class CustomerPlanController {
             
             CrmResult<SaleChance> ret = new CrmResult<>();
             ret.setCode(0);
-            ret.setMsg("删除客户成功");
+            ret.setMsg("删除计划成功");
             return ret;
         }
     
