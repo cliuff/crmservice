@@ -42,7 +42,7 @@ public class CustomerPlanController {
 
     @ApiOperation(value = "分页返回客户信息12456",
             notes = "分页查询客户信息，默认返回第一页，每页10行。")
-    @RequestMapping(value = "/customerPlans", method = RequestMethod.POST)
+    @RequestMapping(value = "/CustomerPlans", method = RequestMethod.POST)
     public CrmResult<CustomerPlan> getAllCustomerPlan(
             @ApiParam(value = "要查询的页码", required = true)
             @RequestParam(defaultValue = "1")
@@ -53,7 +53,7 @@ public class CustomerPlanController {
             CustomerPlan customerplan) {
         QueryWrapper<CustomerPlan> qw = new QueryWrapper<>();
         if (customerplan.getSaleChanceId()!=null) {
-            qw.like("saleChanceId", customerplan.getSaleChanceId()); //第一个参数是字段名
+            qw.eq("sale_Chance_Id", customerplan.getSaleChanceId()); //第一个参数是字段名
         }
         Page<CustomerPlan> pageCustomerPlan = customerplanservice.page(
                 new Page<>(page, limit), qw);
@@ -79,6 +79,11 @@ public class CustomerPlanController {
         @ApiIgnore
         @RequestMapping("/addCustomerPlan")
         public CrmResult<CustomerPlan> addSaleChance(CustomerPlan customerplan) {
+        	
+        	customerplan.setResult("未完成");
+        	customerplan.setUserName("妮子");
+        	customerplan.setSaleChanceId(1016);
+        	
         	customerplanservice.save(customerplan);
 
             CrmResult<CustomerPlan> ret = new CrmResult<>();
